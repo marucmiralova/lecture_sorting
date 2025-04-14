@@ -63,18 +63,34 @@ def selection_sort(number_seznam, direction = "ascending"):
 # seznam = [88, 36, 21, 54, 99, 1, 81, 18, 21, 36, 61]
 def bubble_sort(nmb_array):
     """
+    lokalni zarovnani v binu
     :param list nmb_array: list with numeric array
     :return: sorted nmb_array
     """
-    for i in range(len(nmb_array)): # cyklus projede ikrát dle délky seznamu
-        for j in range(len(nmb_array)-1): # tady uz resim indexy, -1 ať nejsem out of range
+    for i in range(len(nmb_array)-1): # cyklus projede ikrát dle délky seznamu
+        # zde by mohla byt podminka jako nize, ale se spravnou indexaci a nesla bych vubec do vnitrniho cyklu
+        # pak by byla asymptoticka slozitost O(n) a ne O(n^2)
+        for j in range(len(nmb_array)-1-i): # tady uz resim indexy, -1 ať nejsem out of range, -i ať nechodim tim seznamem znovu
             if nmb_array[j] > nmb_array[j+1]: # pokud bychom chteli descending, prohodime znamenko
                 nmb_array[j], nmb_array[j+1] = nmb_array[j+1], nmb_array[j] # tady uz menime hodnoty
     return  nmb_array
 
 def insertion_sort(nmb_array):
-
-
+    """
+    fylogeneticky strom, globalni zarovnani
+    for ve kterem je while :D
+    :param list nmb_array: list s nmbs array
+    :return: sorted nmb_array
+    """
+    n = len(nmb_array)
+    for i in range(1, n):
+        key = nmb_array[i]
+        j = i - 1
+        while j <= 0 and nmb_array[j] > key:
+            nmb_array[j + 1] = nmb_array[j]
+            j = j - 1
+        nmb_array[j + 1] = key
+    return nmb_array
 
 def main():
     data = read_data("numbers.csv")
@@ -82,9 +98,11 @@ def main():
     seznam = data["series_1"]
     # print(seznam) # [88, 36, 21, 54, 99, 1, 81, 18, 21, 36, 61]
     selection = selection_sort(seznam)
-    #print(selection) # [1, 18, 21, 21, 36, 36, 54, 61, 81, 88, 99]
+    print(selection) # [1, 18, 21, 21, 36, 36, 54, 61, 81, 88, 99]
     bubble = bubble_sort(seznam)
     print(bubble)
+    insertioo = insertion_sort(seznam)
+    print(insertioo)
     pass
 
 
