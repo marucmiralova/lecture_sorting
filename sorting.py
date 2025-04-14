@@ -1,6 +1,7 @@
 import os
 import csv
 
+#Sortovací algoritmy
 
 def read_data(file_name):
     """
@@ -56,13 +57,34 @@ def selection_sort(number_seznam, direction = "ascending"):
 #
 #     return nmb_array
 
+#bubble sort meni dole  hore - mel by byl o polovinu rychlejsi nez selection sort
+#zaroven musi byt  posledni krok, kdy to zkontroluje
+
+# seznam = [88, 36, 21, 54, 99, 1, 81, 18, 21, 36, 61]
+def bubble_sort(nmb_array):
+    """
+    :param list nmb_array: list with numeric array
+    :return: sorted nmb_array
+    """
+    for i in range(len(nmb_array)): # cyklus projede ikrát dle délky seznamu
+        for j in range(len(nmb_array)-1): # tady uz resim indexy, -1 ať nejsem out of range
+            if nmb_array[j] > nmb_array[j+1]: # pokud bychom chteli descending, prohodime znamenko
+                nmb_array[j], nmb_array[j+1] = nmb_array[j+1], nmb_array[j] # tady uz menime hodnoty
+    return  nmb_array
+
+def insertion_sort(nmb_array):
+
+
+
 def main():
     data = read_data("numbers.csv")
     print(data)
     seznam = data["series_1"]
     # print(seznam) # [88, 36, 21, 54, 99, 1, 81, 18, 21, 36, 61]
     selection = selection_sort(seznam)
-    print(selection) # [1, 18, 21, 21, 36, 36, 54, 61, 81, 88, 99]
+    #print(selection) # [1, 18, 21, 21, 36, 36, 54, 61, 81, 88, 99]
+    bubble = bubble_sort(seznam)
+    print(bubble)
     pass
 
 
